@@ -1,0 +1,5 @@
+{
+  "editor.formatOnSave": true,
+  "dart.allowTestsOutsideTestFolder": true,
+  "dart.allowAnalytics": false
+}

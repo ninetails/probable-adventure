@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:mi_card/components/info_box.dart';
 
 void main() {
   runApp(MyApp());
@@ -42,30 +41,52 @@ class MyApp extends StatelessWidget {
               ),
               SizedBox(
                 height: 20.0,
-              ),
-              InfoBox(
-                icon: Icon(
-                  Icons.phone,
-                  color: Colors.teal.shade900,
+                width: 150.0,
+                child: Divider(
+                  color: Colors.teal.shade100,
                 ),
-                content: '+55 (99) 99999 9999',
-                color: Colors.teal.shade900,
               ),
-              InfoBox(
-                icon: FaIcon(
-                  FontAwesomeIcons.twitter,
-                  color: Colors.teal.shade900,
+              Card(
+                child: ListTile(
+                  leading: Icon(
+                    Icons.phone,
+                    color: Colors.teal.shade900,
+                  ),
+                  title: Text(
+                    '+55 (99) 99999 9999',
+                    style: TextStyle(
+                      color: Colors.teal.shade900,
+                    ),
+                  ),
                 ),
-                content: 'ninetails',
-                color: Colors.teal.shade900,
               ),
-              InfoBox(
-                icon: FaIcon(
-                  FontAwesomeIcons.linkedin,
-                  color: Colors.teal.shade900,
+              Card(
+                child: ListTile(
+                  leading: FaIcon(
+                    FontAwesomeIcons.twitter,
+                    color: Colors.teal.shade900,
+                  ),
+                  title: Text(
+                    'ninetails',
+                    style: TextStyle(
+                      color: Colors.teal.shade900,
+                    ),
+                  ),
                 ),
-                content: 'ninetails',
-                color: Colors.teal.shade900,
+              ),
+              Card(
+                child: ListTile(
+                  leading: FaIcon(
+                    FontAwesomeIcons.linkedin,
+                    color: Colors.teal.shade900,
+                  ),
+                  title: Text(
+                    'ninetails',
+                    style: TextStyle(
+                      color: Colors.teal.shade900,
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

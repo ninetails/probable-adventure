@@ -1,5 +1,24 @@
 {
   "editor.formatOnSave": true,
   "dart.allowTestsOutsideTestFolder": true,
-  "dart.allowAnalytics": false
+  "dart.allowAnalytics": false,
+  "files.exclude": {
+    "**/.dart*": true,
+    "**/.DS_Store": true,
+    "**/.git*": true,
+    "**/.gradle": true,
+    "**/.hg": true,
+    "**/.idea": true,
+    "**/.metadata": true,
+    "**/.packages": true,
+    "**/.svn": true,
+    "**/*.iml": true,
+    "**/*.lock": true,
+    "**/build": true,
+    "**/CVS": true,
+    "**/gradle/**/*.jar": true,
+    "**/gradlew*": true,
+    "**/local.properties": true,
+    ".editorconfig": true,
+  }
 }

@@ -20,5 +20,6 @@
     "**/gradlew*": true,
     "**/local.properties": true,
     ".editorconfig": true,
+    ".vscode": true,
   }
 }

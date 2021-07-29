@@ -11,8 +11,7 @@ void main() {
         ),
         body: Center(
           child: Image(
-            image: NetworkImage(
-                'https://i.ytimg.com/vi/QH2-TGUlwu4/sddefault.jpg'),
+            image: AssetImage('assets/images/diamond.png'),
           ),
         ),
       ),

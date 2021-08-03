@@ -60,25 +60,43 @@ class _DicePageState extends State<DicePage> {
     return Center(
       child: Row(
         children: [
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: _changeDiceFaces,
-                child: Image.asset('images/dice$leftDiceNumber.png'),
-              ),
-            ),
+          Dice(
+            changeDiceFaces: _changeDiceFaces,
+            diceNumber: leftDiceNumber,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                onPressed: _changeDiceFaces,
-                child: Image.asset('images/dice$rightDiceNumber.png'),
-              ),
-            ),
+          Dice(
+            changeDiceFaces: _changeDiceFaces,
+            diceNumber: rightDiceNumber,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class Dice extends StatelessWidget {
+  final changeDiceFaces;
+  final diceNumber;
+
+  const Dice({
+    Key? key,
+    this.changeDiceFaces,
+    this.diceNumber,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (this.diceNumber == null) {
+      return Container();
+    }
+
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: TextButton(
+          onPressed: this.changeDiceFaces,
+          child: Image.asset('images/dice$diceNumber.png'),
+        ),
       ),
     );
   }

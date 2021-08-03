@@ -413,3 +413,7 @@ fabric.properties
 
 # macOS
 !Icon
+
+# vscode
+!bootcamp.code-workspace
+!guide.code-workspace

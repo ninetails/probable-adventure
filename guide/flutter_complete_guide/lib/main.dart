@@ -14,13 +14,13 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  var questionIndex = 0;
+  var _questionIndex = 0;
 
   void answerQuestion() {
     setState(() {
-      questionIndex = questionIndex + 1;
+      this._questionIndex = this._questionIndex + 1;
     });
-    print(questionIndex);
+    print(this._questionIndex);
   }
 
   @override
@@ -62,10 +62,10 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(questions[questionIndex]),
-            Answer(this.answerQuestion),
-            Answer(this.answerQuestion),
-            Answer(this.answerQuestion),
+            Question(questions[_questionIndex]['questionText']),
+            ...(questions[_questionIndex]['answers'] as List<String>)
+                .map((answer) => Answer(this.answerQuestion, answer))
+                .toList(),
           ],
         ),
       ),

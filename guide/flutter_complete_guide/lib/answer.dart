@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Answer extends StatelessWidget {
-  final Function onPressed;
+  final VoidCallback onPressed;
   final String text;
 
-  Answer(this.onPressed, this.text, {Key key}) : super(key: key);
+  Answer(this.onPressed, this.text, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

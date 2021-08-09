@@ -5,7 +5,7 @@ import 'package:flutter_complete_guide/question.dart';
 class Quiz extends StatelessWidget {
   final List<Map<String, Object>> questions;
   final int questionIndex;
-  final VoidCallback answerQuestion;
+  final void Function(int) answerQuestion;
 
   const Quiz({
     Key? key,
@@ -21,8 +21,11 @@ class Quiz extends StatelessWidget {
         Question(
           this.questions[this.questionIndex]['questionText'] as String,
         ),
-        ...(this.questions[this.questionIndex]['answers'] as List<String>)
-            .map((answer) => Answer(this.answerQuestion, answer))
+        ...(this.questions[this.questionIndex]['answers']
+                as List<Map<String, Object>>)
+            .map((answer) => Answer(
+                () => this.answerQuestion(answer['score'] as int),
+                answer['text'] as String))
             .toList(),
       ],
     );

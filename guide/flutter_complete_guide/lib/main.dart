@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_complete_guide/answer.dart';
-import 'package:flutter_complete_guide/question.dart';
+import 'package:flutter_complete_guide/quiz.dart';
+import 'package:flutter_complete_guide/result.dart';
 
 // void main() {
 //   runApp(MyApp());
@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  final questions = const [
+  final _questions = const [
     {
       'questionText': 'What\'s your favorite color?',
       'answers': [
@@ -46,8 +46,8 @@ class _MyAppState extends State<MyApp> {
 
   var _questionIndex = 0;
 
-  void answerQuestion() {
-    if (this._questionIndex < this.questions.length) {}
+  void _answerQuestion() {
+    if (this._questionIndex < this._questions.length) {}
 
     setState(() {
       this._questionIndex = this._questionIndex + 1;
@@ -62,14 +62,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: Column(
-          children: [
-            Question(this.questions[_questionIndex]['questionText'] as String),
-            ...(this.questions[_questionIndex]['answers'] as List<String>)
-                .map((answer) => Answer(this.answerQuestion, answer))
-                .toList(),
-          ],
-        ),
+        body: this._questionIndex < this._questions.length
+            ? Quiz(
+                answerQuestion: this._answerQuestion,
+                questionIndex: this._questionIndex,
+                questions: this._questions,
+              )
+            : Result(),
       ),
     );
   }

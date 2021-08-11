@@ -19,12 +19,12 @@ class Quiz extends StatelessWidget {
     return Column(
       children: [
         Question(
-          this.questions[this.questionIndex]['questionText'] as String,
+          this.questions[this.questionIndex]['questionText']! as String,
         ),
         ...(this.questions[this.questionIndex]['answers']
                 as List<Map<String, Object>>)
             .map((answer) => Answer(
-                () => this.answerQuestion(answer['score'] as int),
+                () => this.answerQuestion(answer['score']! as int),
                 answer['text'] as String))
             .toList(),
       ],

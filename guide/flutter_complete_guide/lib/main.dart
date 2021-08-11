@@ -102,19 +102,55 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
+  // Widget build(BuildContext context) {
+  //   return MaterialApp(
+  //     home: Scaffold(
+  //       appBar: AppBar(
+  //         title: Text('My First App'),
+  //       ),
+  //       body: this._questionIndex < this._questions.length
+  //           ? Quiz(
+  //               answerQuestion: this._answerQuestion,
+  //               questionIndex: this._questionIndex,
+  //               questions: this._questions,
+  //             )
+  //           : Result(this._totalScore, this._resetQuiz),
+  //     ),
+  //   );
+  // }
+
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: this._questionIndex < this._questions.length
-            ? Quiz(
-                answerQuestion: this._answerQuestion,
-                questionIndex: this._questionIndex,
-                questions: this._questions,
-              )
-            : Result(this._totalScore, this._resetQuiz),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RaisedButton(
+                color: Colors.blue,
+                textColor: Colors.white,
+                child: Text('A Raised Button'),
+                onPressed: () => print('Pressed raised button'),
+              ),
+              FlatButton(
+                child: Text('A Flat Button'),
+                textColor: Colors.blue,
+                onPressed: () => print('Pressed flat button'),
+              ),
+              OutlineButton(
+                borderSide: BorderSide(
+                  color: Colors.blue,
+                ),
+                textColor: Colors.blue,
+                child: Text('An Outline Button'),
+                onPressed: () => print('Pressed outline button'),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

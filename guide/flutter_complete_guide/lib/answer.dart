@@ -12,8 +12,12 @@ class Answer extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          primary: Colors.blue,
+          primary: Colors.orange,
+          onPrimary: Colors.white,
         ),
+        // style: ButtonStyle(
+        //   backgroundColor: MaterialStateProperty.all(Colors.blue),
+        // ),
         child: Text(this.text),
         onPressed: this.onPressed,
       ),

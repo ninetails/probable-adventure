@@ -121,6 +121,9 @@ class _MyAppState extends State<MyApp> {
 
   Widget build(BuildContext context) {
     return MaterialApp(
+      // theme: ThemeData(
+      //   primaryColor: Colors.red,
+      // ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('My First App'),
@@ -129,22 +132,49 @@ class _MyAppState extends State<MyApp> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              RaisedButton(
-                color: Colors.blue,
-                textColor: Colors.white,
+              ElevatedButton(
+                // style: ButtonStyle(
+                //   backgroundColor: MaterialStateProperty.all(Colors.orange),
+                //   foregroundColor: MaterialStateProperty.all(Colors.white),
+                // ),
+                style: ElevatedButton.styleFrom(
+                  /// [primary] here means to background
+                  primary: Colors.orange,
+                  onPrimary: Colors.white,
+                ),
                 child: Text('A Raised Button'),
                 onPressed: () => print('Pressed raised button'),
               ),
-              FlatButton(
+              TextButton(
                 child: Text('A Flat Button'),
-                textColor: Colors.blue,
+                // style: ButtonStyle(
+                //   foregroundColor: MaterialStateProperty.all(Colors.orange),
+                //   backgroundColor: MaterialStateProperty.all(Colors.black12),
+                // ),
+                style: TextButton.styleFrom(
+                  /// while [primary] here means to foreground
+                  primary: Colors.orange,
+
+                  /// also [onPrimary] is absent because you don't set background color,
+                  /// if you need a background color, just switch to [ElevatedButton]
+                ),
                 onPressed: () => print('Pressed flat button'),
               ),
-              OutlineButton(
-                borderSide: BorderSide(
-                  color: Colors.blue,
+              OutlinedButton(
+                // style: ButtonStyle(
+                //   side: MaterialStateProperty.all(
+                //     BorderSide(
+                //       color: Colors.red,
+                //       style: BorderStyle.solid,
+                //     ),
+                //   ),
+                // ),
+                style: OutlinedButton.styleFrom(
+                  primary: Colors.orange,
+                  side: BorderSide(
+                    color: Colors.orange,
+                  ),
                 ),
-                textColor: Colors.blue,
                 child: Text('An Outline Button'),
                 onPressed: () => print('Pressed outline button'),
               ),

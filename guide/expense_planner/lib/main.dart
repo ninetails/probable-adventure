@@ -28,7 +28,29 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(this.title),
       ),
-      body: Center(child: Text('Widget Playground!')),
+      body: Column(
+        children: [
+          // Card(
+          //   color: Colors.blue,
+          //   child: Container(
+          //     width: double.infinity,
+          //     child: Text('CHART!'),
+          //   ),
+          //   elevation: 5,
+          // ),
+          Container(
+            width: double.infinity,
+            child: Card(
+              color: Colors.blue,
+              child: Text('CHART!'),
+              elevation: 5,
+            ),
+          ),
+          Card(
+            child: Text('LIST OF TX'),
+          ),
+        ],
+      ),
     );
   }
 }

@@ -102,85 +102,19 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  // Widget build(BuildContext context) {
-  //   return MaterialApp(
-  //     home: Scaffold(
-  //       appBar: AppBar(
-  //         title: Text('My First App'),
-  //       ),
-  //       body: this._questionIndex < this._questions.length
-  //           ? Quiz(
-  //               answerQuestion: this._answerQuestion,
-  //               questionIndex: this._questionIndex,
-  //               questions: this._questions,
-  //             )
-  //           : Result(this._totalScore, this._resetQuiz),
-  //     ),
-  //   );
-  // }
-
   Widget build(BuildContext context) {
     return MaterialApp(
-      // theme: ThemeData(
-      //   primaryColor: Colors.red,
-      // ),
       home: Scaffold(
         appBar: AppBar(
           title: Text('My First App'),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                // style: ButtonStyle(
-                //   backgroundColor: MaterialStateProperty.all(Colors.orange),
-                //   foregroundColor: MaterialStateProperty.all(Colors.white),
-                // ),
-                style: ElevatedButton.styleFrom(
-                  /// [primary] here means to background
-                  primary: Colors.orange,
-                  onPrimary: Colors.white,
-                ),
-                child: Text('A Raised Button'),
-                onPressed: () => print('Pressed raised button'),
-              ),
-              TextButton(
-                child: Text('A Flat Button'),
-                // style: ButtonStyle(
-                //   foregroundColor: MaterialStateProperty.all(Colors.orange),
-                //   backgroundColor: MaterialStateProperty.all(Colors.black12),
-                // ),
-                style: TextButton.styleFrom(
-                  /// while [primary] here means to foreground
-                  primary: Colors.orange,
-
-                  /// also [onPrimary] is absent because you don't set background color,
-                  /// if you need a background color, just switch to [ElevatedButton]
-                ),
-                onPressed: () => print('Pressed flat button'),
-              ),
-              OutlinedButton(
-                // style: ButtonStyle(
-                //   side: MaterialStateProperty.all(
-                //     BorderSide(
-                //       color: Colors.red,
-                //       style: BorderStyle.solid,
-                //     ),
-                //   ),
-                // ),
-                style: OutlinedButton.styleFrom(
-                  primary: Colors.orange,
-                  side: BorderSide(
-                    color: Colors.orange,
-                  ),
-                ),
-                child: Text('An Outline Button'),
-                onPressed: () => print('Pressed outline button'),
-              ),
-            ],
-          ),
-        ),
+        body: this._questionIndex < this._questions.length
+            ? Quiz(
+                answerQuestion: this._answerQuestion,
+                questionIndex: this._questionIndex,
+                questions: this._questions,
+              )
+            : Result(this._totalScore, this._resetQuiz),
       ),
     );
   }

@@ -29,24 +29,22 @@ class MyHomePage extends StatelessWidget {
         title: Text(this.title),
       ),
       body: Column(
+        // mainAxisAlignment: MainAxisAlignment.end,
+        // mainAxisAlignment: MainAxisAlignment.center,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        // crossAxisAlignment: CrossAxisAlignment.end,
+        // crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          // Card(
-          //   color: Colors.blue,
-          //   child: Container(
-          //     width: double.infinity,
-          //     child: Text('CHART!'),
-          //   ),
-          //   elevation: 5,
-          // ),
-          Container(
-            width: double.infinity,
-            child: Card(
-              color: Colors.blue,
-              child: Text('CHART!'),
-              elevation: 5,
-            ),
+          Card(
+            color: Colors.blue,
+            child: Text('CHART!'),
+            elevation: 5,
           ),
           Card(
+            color: Colors.red,
             child: Text('LIST OF TX'),
           ),
         ],

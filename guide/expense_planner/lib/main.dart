@@ -84,15 +84,14 @@ class MyHomePage extends StatelessWidget {
                         Text(
                           tx.title,
                           style: TextStyle(
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
                           ),
                         ),
                         Text(
                           tx.date.toString(),
                           style: TextStyle(
                             color: Colors.grey,
-                            fontSize: 14,
                           ),
                         ),
                       ],

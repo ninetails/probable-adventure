@@ -8,6 +8,9 @@
     },
     {
       "path": "guide/flutter_assignment"
+    },
+    {
+      "path": "guide/expense_planner"
     }
   ]
 }

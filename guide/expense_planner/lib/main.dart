@@ -9,10 +9,12 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final String title = 'Personal Expenses';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Personal Expenses',
+      title: this.title,
       theme: ThemeData(
         primarySwatch: Colors.purple,
         accentColor: Colors.amber,
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
               )),
         ),
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: this.title),
     );
   }
 }

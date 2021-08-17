@@ -126,6 +126,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Chart(this._recentTransactions),
+
+            /// this will trigger an error!
+            /// Expanded(child: TransactionList(this._userTransactions, this._deleteTransaction)),
             TransactionList(this._userTransactions, this._deleteTransaction),
           ],
         ),

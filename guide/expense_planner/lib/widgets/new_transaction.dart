@@ -23,7 +23,7 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = this._titleController.text;
     final enteredAmount = double.parse(this._amountController.text);
 
-    if (enteredAmount <= 0 || this._selectedDate == null) {
+    if (enteredAmount <= 0) {
       return;
     }
 
@@ -86,7 +86,7 @@ class _NewTransactionState extends State<NewTransaction> {
                   Expanded(
                     child: Text(
                       this._selectedDate == null
-                          ? 'No Date Chosen!'
+                          ? 'Today'
                           : 'Picked Date: ${DateFormat.yMd().format(this._selectedDate as DateTime)}',
                     ),
                   ),

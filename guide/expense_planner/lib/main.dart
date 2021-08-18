@@ -111,25 +111,35 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      title: Text(this.widget.title),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => this._startAddNewTransaction(context),
+        ),
+      ],
+    );
+
+    final availableHeight = MediaQuery.of(context).size.height -
+        appBar.preferredSize.height -
+        MediaQuery.of(context).padding.top;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(this.widget.title),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => this._startAddNewTransaction(context),
-          ),
-        ],
-      ),
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Chart(this._recentTransactions),
-
-            /// this will trigger an error!
-            /// Expanded(child: TransactionList(this._userTransactions, this._deleteTransaction)),
-            TransactionList(this._userTransactions, this._deleteTransaction),
+            Container(
+              height: availableHeight * 0.4,
+              child: Chart(this._recentTransactions),
+            ),
+            Container(
+              height: availableHeight * 0.6,
+              child: TransactionList(
+                  this._userTransactions, this._deleteTransaction),
+            ),
           ],
         ),
       ),

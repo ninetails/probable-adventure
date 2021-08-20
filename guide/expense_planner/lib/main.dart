@@ -155,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             this._showChart
                 ? Container(
-                    height: availableHeight * .3,
+                    height: availableHeight * .7,
                     child: Chart(this._recentTransactions),
                   )
                 : Container(

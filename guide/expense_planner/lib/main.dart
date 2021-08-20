@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  PreferredSizeWidget get _appBar {
+  PreferredSizeWidget _buildAppBar(BuildContext context) {
     return Platform.isIOS
         ? CupertinoNavigationBar(
             middle: Text(this.widget.title),
@@ -144,16 +144,16 @@ class _MyHomePageState extends State<MyHomePage> {
           );
   }
 
-  Widget get _toggleChartWidget {
+  Widget _buildToggleChartWidget(ThemeData theme) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           'Show Chart',
-          style: Theme.of(context).textTheme.title,
+          style: theme.textTheme.title,
         ),
         Switch.adaptive(
-          activeColor: Theme.of(context).accentColor,
+          activeColor: theme.accentColor,
           value: this._showChart,
           onChanged: (val) {
             setState(() {
@@ -189,9 +189,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _buildLandscapeContent(
-      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+      ThemeData theme, MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
     return [
-      this._toggleChartWidget,
+      this._buildToggleChartWidget(theme),
       this._showChart
           ? this._chartWidget(mediaQuery, appBar, 0.6)
           : this._transactionListWidget(mediaQuery, appBar, 0.6),
@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   List<Widget> _buildPortraitContent(
-      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+      _, MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
     return [
       this._chartWidget(mediaQuery, appBar, 0.3),
       this._transactionListWidget(mediaQuery, appBar, 0.7),
@@ -210,7 +210,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
-    final appBar = this._appBar;
+    final appBar = this._buildAppBar(context);
     final renderContent =
         isLandscape ? this._buildLandscapeContent : this._buildPortraitContent;
 
@@ -218,7 +218,7 @@ class _MyHomePageState extends State<MyHomePage> {
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: renderContent(mediaQuery, appBar),
+          children: renderContent(Theme.of(context), mediaQuery, appBar),
         ),
       ),
     );

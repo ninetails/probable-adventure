@@ -1,3 +1,5 @@
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import './models/transaction.dart';
@@ -117,24 +119,38 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  AppBar get appBar {
-    return AppBar(
-      title: Text(this.widget.title),
-      actions: [
-        IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () => this._startAddNewTransaction(context),
-        ),
-      ],
-    );
+  PreferredSizeWidget get _appBar {
+    return Platform.isIOS
+        ? CupertinoNavigationBar(
+            middle: Text(this.widget.title),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                GestureDetector(
+                  onTap: () => this._startAddNewTransaction(context),
+                  child: Icon(CupertinoIcons.add)),
+                ),
+              ],
+            ),
+          ) as PreferredSizeWidget
+        : AppBar(
+            title: Text(this.widget.title),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.add),
+                onPressed: () => this._startAddNewTransaction(context),
+              ),
+            ],
+          );
   }
 
-  Widget get toggleChartWidget {
+  Widget get _toggleChartWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('Show Chart'),
-        Switch(
+        Switch.adaptive(
+          activeColor: Theme.of(context).accentColor,
           value: this._showChart,
           onChanged: (val) {
             setState(() {
@@ -146,22 +162,25 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  double getAvailableHeight(MediaQueryData mediaQuery) {
+  double _getAvailableHeight(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
     return mediaQuery.size.height -
-        this.appBar.preferredSize.height -
+        appBar.preferredSize.height -
         mediaQuery.padding.top;
   }
 
-  Widget chartWidget(MediaQueryData mediaQuery, double mod) {
+  Widget _chartWidget(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar, double mod) {
     return Container(
-      height: this.getAvailableHeight(mediaQuery) * mod,
+      height: this._getAvailableHeight(mediaQuery, appBar) * mod,
       child: Chart(this._recentTransactions),
     );
   }
 
-  Widget transactionListWidget(MediaQueryData mediaQuery, double mod) {
+  Widget _transactionListWidget(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar, double mod) {
     return Container(
-      height: this.getAvailableHeight(mediaQuery) * mod,
+      height: this._getAvailableHeight(mediaQuery, appBar) * mod,
       child: TransactionList(this._userTransactions, this._deleteTransaction),
     );
   }
@@ -170,28 +189,40 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
+    final appBar = this._appBar;
 
-    return Scaffold(
-      appBar: appBar,
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isLandscape) this.toggleChartWidget,
-            if (!isLandscape) this.chartWidget(mediaQuery, 0.3),
-            if (!isLandscape) this.transactionListWidget(mediaQuery, 0.7),
-            if (isLandscape)
-              this._showChart
-                  ? this.chartWidget(mediaQuery, 0.6)
-                  : this.transactionListWidget(mediaQuery, 0.6),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: () => this._startAddNewTransaction(context),
+    final pageBody = SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          if (isLandscape) this._toggleChartWidget,
+          if (!isLandscape) this._chartWidget(mediaQuery, appBar, 0.3),
+          if (!isLandscape)
+            this._transactionListWidget(mediaQuery, appBar, 0.7),
+          if (isLandscape)
+            this._showChart
+                ? this._chartWidget(mediaQuery, appBar, 0.6)
+                : this._transactionListWidget(mediaQuery, appBar, 0.6),
+        ],
       ),
     );
+
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            navigationBar: appBar as ObstructingPreferredSizeWidget,
+            child: pageBody,
+          )
+        : Scaffold(
+            appBar: appBar,
+            body: pageBody,
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+            floatingActionButton: Platform.isIOS
+                ? Container()
+                : FloatingActionButton(
+                    child: Icon(Icons.add),
+                    onPressed: () => this._startAddNewTransaction(context),
+                  ),
+          );
   }
 }

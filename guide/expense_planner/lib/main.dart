@@ -146,30 +146,30 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  double getAvailableHeight(BuildContext context) {
-    return MediaQuery.of(context).size.height -
+  double getAvailableHeight(MediaQueryData mediaQuery) {
+    return mediaQuery.size.height -
         this.appBar.preferredSize.height -
-        MediaQuery.of(context).padding.top;
+        mediaQuery.padding.top;
   }
 
-  Widget chartWidget(BuildContext context, double mod) {
+  Widget chartWidget(MediaQueryData mediaQuery, double mod) {
     return Container(
-      height: this.getAvailableHeight(context) * mod,
+      height: this.getAvailableHeight(mediaQuery) * mod,
       child: Chart(this._recentTransactions),
     );
   }
 
-  Widget transactionListWidget(BuildContext context, double mod) {
+  Widget transactionListWidget(MediaQueryData mediaQuery, double mod) {
     return Container(
-      height: this.getAvailableHeight(context) * mod,
+      height: this.getAvailableHeight(mediaQuery) * mod,
       child: TransactionList(this._userTransactions, this._deleteTransaction),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    final isLandscape =
-        MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    final isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     return Scaffold(
       appBar: appBar,
@@ -178,12 +178,12 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             if (isLandscape) this.toggleChartWidget,
-            if (!isLandscape) this.chartWidget(context, 0.3),
-            if (!isLandscape) this.transactionListWidget(context, 0.7),
+            if (!isLandscape) this.chartWidget(mediaQuery, 0.3),
+            if (!isLandscape) this.transactionListWidget(mediaQuery, 0.7),
             if (isLandscape)
               this._showChart
-                  ? this.chartWidget(context, 0.6)
-                  : this.transactionListWidget(context, 0.6),
+                  ? this.chartWidget(mediaQuery, 0.6)
+                  : this.transactionListWidget(mediaQuery, 0.6),
           ],
         ),
       ),

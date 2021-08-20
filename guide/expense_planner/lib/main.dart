@@ -128,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 GestureDetector(
                   onTap: () => this._startAddNewTransaction(context),
-                  child: Icon(CupertinoIcons.add)),
+                  child: Icon(CupertinoIcons.add),
                 ),
               ],
             ),

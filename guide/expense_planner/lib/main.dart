@@ -194,19 +194,21 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final appBar = this._appBar;
 
-    final pageBody = SingleChildScrollView(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          if (isLandscape) this._toggleChartWidget,
-          if (!isLandscape) this._chartWidget(mediaQuery, appBar, 0.3),
-          if (!isLandscape)
-            this._transactionListWidget(mediaQuery, appBar, 0.7),
-          if (isLandscape)
-            this._showChart
-                ? this._chartWidget(mediaQuery, appBar, 0.6)
-                : this._transactionListWidget(mediaQuery, appBar, 0.6),
-        ],
+    final pageBody = SafeArea(
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            if (isLandscape) this._toggleChartWidget,
+            if (!isLandscape) this._chartWidget(mediaQuery, appBar, 0.3),
+            if (!isLandscape)
+              this._transactionListWidget(mediaQuery, appBar, 0.7),
+            if (isLandscape)
+              this._showChart
+                  ? this._chartWidget(mediaQuery, appBar, 0.6)
+                  : this._transactionListWidget(mediaQuery, appBar, 0.6),
+          ],
+        ),
       ),
     );
 

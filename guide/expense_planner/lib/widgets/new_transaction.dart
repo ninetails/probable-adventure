@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import './adaptative_flat_button.dart';
 
 class NewTransaction extends StatefulWidget {
   NewTransaction(this.addTx, {Key? key}) : super(key: key);
@@ -39,7 +40,7 @@ class _NewTransactionState extends State<NewTransaction> {
     Navigator.of(context).pop();
   }
 
-  void _presetnDatePicker(BuildContext context) {
+  void _presentDatePicker(BuildContext context) {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
@@ -99,27 +100,15 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'Picked Date: ${DateFormat.yMd().format(this._selectedDate as DateTime)}',
                       ),
                     ),
-                    Platform.isIOS
-                        ? CupertinoButton(
-                            child: Text(
-                              'Choose Date',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            onPressed: () => this._presetnDatePicker(context))
-                        : TextButton(
-                            style: ButtonStyle(
-                              textStyle: MaterialStateProperty.all(
-                                TextStyle(
-                                  color: Theme.of(context).primaryColor,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                            onPressed: () => this._presetnDatePicker(context),
-                            child: Text('Choose Date'),
-                          )
+                    AdaptativeFlatButton(
+                      child: Text(
+                        'Choose Date',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      onPressed: () => this._presentDatePicker(context),
+                    )
                   ],
                 ),
               ),

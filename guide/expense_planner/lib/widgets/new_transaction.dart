@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -96,18 +99,27 @@ class _NewTransactionState extends State<NewTransaction> {
                             : 'Picked Date: ${DateFormat.yMd().format(this._selectedDate as DateTime)}',
                       ),
                     ),
-                    TextButton(
-                      style: ButtonStyle(
-                        textStyle: MaterialStateProperty.all(
-                          TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      onPressed: () => this._presetnDatePicker(context),
-                      child: Text('Choose Date'),
-                    )
+                    Platform.isIOS
+                        ? CupertinoButton(
+                            child: Text(
+                              'Choose Date',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            onPressed: () => this._presetnDatePicker(context))
+                        : TextButton(
+                            style: ButtonStyle(
+                              textStyle: MaterialStateProperty.all(
+                                TextStyle(
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                            onPressed: () => this._presetnDatePicker(context),
+                            child: Text('Choose Date'),
+                          )
                   ],
                 ),
               ),

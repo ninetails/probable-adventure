@@ -188,26 +188,37 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  List<Widget> _buildLandscapeContent(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+    return [
+      this._toggleChartWidget,
+      this._showChart
+          ? this._chartWidget(mediaQuery, appBar, 0.6)
+          : this._transactionListWidget(mediaQuery, appBar, 0.6),
+    ];
+  }
+
+  List<Widget> _buildPortraitContent(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+    return [
+      this._chartWidget(mediaQuery, appBar, 0.3),
+      this._transactionListWidget(mediaQuery, appBar, 0.7),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
     final appBar = this._appBar;
+    final renderContent =
+        isLandscape ? this._buildLandscapeContent : this._buildPortraitContent;
 
     final pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (isLandscape) this._toggleChartWidget,
-            if (!isLandscape) this._chartWidget(mediaQuery, appBar, 0.3),
-            if (!isLandscape)
-              this._transactionListWidget(mediaQuery, appBar, 0.7),
-            if (isLandscape)
-              this._showChart
-                  ? this._chartWidget(mediaQuery, appBar, 0.6)
-                  : this._transactionListWidget(mediaQuery, appBar, 0.6),
-          ],
+          children: renderContent(mediaQuery, appBar),
         ),
       ),
     );

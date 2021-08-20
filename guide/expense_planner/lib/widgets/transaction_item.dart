@@ -37,41 +37,48 @@ class _TransactionItemState extends State<TransactionItem> {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: CircleAvatar(
-        backgroundColor: this._bgColor,
-        radius: 30,
-        child: Padding(
-          padding: const EdgeInsets.all(6),
-          child: FittedBox(
-            child: Text('\$${this.widget.transaction.amount}'),
+    return Card(
+      elevation: 5,
+      margin: EdgeInsets.symmetric(
+        vertical: 8,
+        horizontal: 5,
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundColor: this._bgColor,
+          radius: 30,
+          child: Padding(
+            padding: const EdgeInsets.all(6),
+            child: FittedBox(
+              child: Text('\$${this.widget.transaction.amount}'),
+            ),
           ),
         ),
-      ),
-      title: Text(
-        this.widget.transaction.title,
-        style: Theme.of(context).textTheme.title,
-      ),
-      subtitle: Text(
-        DateFormat.yMMMd().format(this.widget.transaction.date),
-      ),
-      trailing: MediaQuery.of(context).size.width > 460
-          ? TextButton.icon(
-              style: ButtonStyle(
-                foregroundColor:
-                    MaterialStateProperty.all(Theme.of(context).errorColor),
+        title: Text(
+          this.widget.transaction.title,
+          style: Theme.of(context).textTheme.title,
+        ),
+        subtitle: Text(
+          DateFormat.yMMMd().format(this.widget.transaction.date),
+        ),
+        trailing: MediaQuery.of(context).size.width > 460
+            ? TextButton.icon(
+                style: ButtonStyle(
+                  foregroundColor:
+                      MaterialStateProperty.all(Theme.of(context).errorColor),
+                ),
+                onPressed: () =>
+                    this.widget.deleteTransaction(this.widget.transaction.id),
+                icon: const Icon(Icons.delete),
+                label: const Text('Delete'),
+              )
+            : IconButton(
+                onPressed: () =>
+                    this.widget.deleteTransaction(this.widget.transaction.id),
+                icon: const Icon(Icons.delete),
+                color: Theme.of(context).errorColor,
               ),
-              onPressed: () =>
-                  this.widget.deleteTransaction(this.widget.transaction.id),
-              icon: const Icon(Icons.delete),
-              label: const Text('Delete'),
-            )
-          : IconButton(
-              onPressed: () =>
-                  this.widget.deleteTransaction(this.widget.transaction.id),
-              icon: const Icon(Icons.delete),
-              color: Theme.of(context).errorColor,
-            ),
+      ),
     );
   }
 }

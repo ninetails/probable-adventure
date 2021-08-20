@@ -70,6 +70,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // ),
   ];
 
+  bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     return this._userTransactions.where((transaction) {
       return transaction.date.isAfter(
@@ -137,15 +139,30 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-              height: availableHeight * .3,
-              child: Chart(this._recentTransactions),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Show Chart'),
+                Switch(
+                  value: this._showChart,
+                  onChanged: (val) {
+                    setState(() {
+                      this._showChart = val;
+                    });
+                  },
+                ),
+              ],
             ),
-            Container(
-              height: availableHeight * .7,
-              child: TransactionList(
-                  this._userTransactions, this._deleteTransaction),
-            ),
+            this._showChart
+                ? Container(
+                    height: availableHeight * .3,
+                    child: Chart(this._recentTransactions),
+                  )
+                : Container(
+                    height: availableHeight * .7,
+                    child: TransactionList(
+                        this._userTransactions, this._deleteTransaction),
+                  ),
           ],
         ),
       ),

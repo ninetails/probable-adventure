@@ -117,9 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    final appBar = AppBar(
+  AppBar get appBar {
+    return AppBar(
       title: Text(this.widget.title),
       actions: [
         IconButton(
@@ -128,10 +127,49 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ],
     );
+  }
 
-    final availableHeight = MediaQuery.of(context).size.height -
-        appBar.preferredSize.height -
+  Widget get toggleChartWidget {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text('Show Chart'),
+        Switch(
+          value: this._showChart,
+          onChanged: (val) {
+            setState(() {
+              this._showChart = val;
+            });
+          },
+        ),
+      ],
+    );
+  }
+
+  double getAvailableHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height -
+        this.appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
+  }
+
+  Widget chartWidget(BuildContext context, double mod) {
+    return Container(
+      height: this.getAvailableHeight(context) * mod,
+      child: Chart(this._recentTransactions),
+    );
+  }
+
+  Widget transactionListWidget(BuildContext context, double mod) {
+    return Container(
+      height: this.getAvailableHeight(context) * mod,
+      child: TransactionList(this._userTransactions, this._deleteTransaction),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
 
     return Scaffold(
       appBar: appBar,
@@ -139,30 +177,13 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text('Show Chart'),
-                Switch(
-                  value: this._showChart,
-                  onChanged: (val) {
-                    setState(() {
-                      this._showChart = val;
-                    });
-                  },
-                ),
-              ],
-            ),
-            this._showChart
-                ? Container(
-                    height: availableHeight * .7,
-                    child: Chart(this._recentTransactions),
-                  )
-                : Container(
-                    height: availableHeight * .7,
-                    child: TransactionList(
-                        this._userTransactions, this._deleteTransaction),
-                  ),
+            if (isLandscape) this.toggleChartWidget,
+            if (!isLandscape) this.chartWidget(context, 0.3),
+            if (!isLandscape) this.transactionListWidget(context, 0.7),
+            if (isLandscape)
+              this._showChart
+                  ? this.chartWidget(context, 0.6)
+                  : this.transactionListWidget(context, 0.6),
           ],
         ),
       ),

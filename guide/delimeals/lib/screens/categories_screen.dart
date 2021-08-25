@@ -3,6 +3,8 @@ import '../dummy_data.dart';
 import '../widgets/category_item.dart';
 
 class CategoriesScreen extends StatelessWidget {
+  static const routeName = '/';
+
   final String title;
 
   const CategoriesScreen({

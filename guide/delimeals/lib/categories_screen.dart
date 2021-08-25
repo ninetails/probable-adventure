@@ -17,6 +17,7 @@ class CategoriesScreen extends StatelessWidget {
         title: Text(this.title),
       ),
       body: GridView(
+        padding: EdgeInsets.all(25),
         children: DUMMY_CATEGORIES
             .map((category) => CategoryItem(
                   category.title,

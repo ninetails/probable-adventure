@@ -1,16 +1,15 @@
 import 'package:flutter/foundation.dart';
+import './product.dart';
 
 class CartItem {
   final String id;
-  final String title;
+  final Product product;
   final int quantity;
-  final double price;
 
   CartItem({
     required this.id,
-    required this.title,
+    required this.product,
     required this.quantity,
-    required this.price,
   });
 }
 
@@ -21,28 +20,26 @@ class Cart with ChangeNotifier {
     return {...this._items};
   }
 
-  void addItem(
-    String productId,
-    double price,
-    String title,
-  ) {
-    if (this._items.containsKey(productId)) {
+  int get itemCount {
+    return this._items.length;
+  }
+
+  void addItem(Product product) {
+    if (this._items.containsKey(product.id)) {
       this._items.update(
-            productId,
+            product.id,
             (existingCartItem) => CartItem(
               id: existingCartItem.id,
-              title: existingCartItem.title,
-              price: existingCartItem.price,
+              product: existingCartItem.product,
               quantity: existingCartItem.quantity + 1,
             ),
           );
     } else {
       this._items.putIfAbsent(
-            productId,
+            product.id,
             () => CartItem(
               id: DateTime.now().toString(),
-              title: title,
-              price: price,
+              product: product,
               quantity: 1,
             ),
           );

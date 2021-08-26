@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
-import './screens/categories_screen.dart';
 import './screens/category_meals_screen.dart';
 import './screens/meal_detail_screen.dart';
+import './screens/tabs_screen.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   final String title = 'DeliMeals';
-
-  final screens = [
-    CategoriesScreen,
-    CategoryMealsScreen,
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -38,9 +33,9 @@ class MyApp extends StatelessWidget {
       ),
       // home: MyHomePage(title: this.title),
       // home: CategoriesScreen(title: this.title),
-      initialRoute: CategoriesScreen.routeName,
+      initialRoute: TabsScreen.routeName,
       routes: {
-        CategoriesScreen.routeName: (_) => CategoriesScreen(),
+        TabsScreen.routeName: (_) => TabsScreen(),
         CategoryMealsScreen.routeName: (_) => CategoryMealsScreen(),
         MealDetailScreen.routeName: (_) => MealDetailScreen(),
       },

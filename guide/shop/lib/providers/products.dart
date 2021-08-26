@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import '../models/product.dart';
+import './product.dart';
 
-class ProductsProvider with ChangeNotifier {
+class Products with ChangeNotifier {
   List<Product> _items = [
     Product(
       id: 'p1',

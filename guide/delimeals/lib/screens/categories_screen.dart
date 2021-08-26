@@ -5,10 +5,9 @@ import '../widgets/category_item.dart';
 class CategoriesScreen extends StatelessWidget {
   static const routeName = '/';
 
-  final String title;
+  final String title = 'DeliMeals';
 
   const CategoriesScreen({
-    required this.title,
     Key? key,
   }) : super(key: key);
 

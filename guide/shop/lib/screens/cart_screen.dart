@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../screens/orders_screen.dart';
 import '../providers/cart.dart' show Cart;
 import '../providers/orders.dart' show Orders;
 // import '../widgets/cart_item.dart' as UI;
@@ -53,6 +54,8 @@ class CartScreen extends StatelessWidget {
                       Provider.of<Orders>(context, listen: false).addOrder(
                           cart.items.values.toList(), cart.totalAmount);
                       cart.clear();
+                      Navigator.of(context)
+                          .popAndPushNamed(OrdersScreen.routeName);
                     },
                   )
                 ],

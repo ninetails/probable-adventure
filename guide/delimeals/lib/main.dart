@@ -1,18 +1,57 @@
 import 'package:flutter/material.dart';
+import './models/meal.dart';
 import './screens/category_meals_screen.dart';
 import './screens/meal_detail_screen.dart';
 import './screens/tabs_screen.dart';
 import './screens/filters_screen.dart';
+import './dummy_data.dart';
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final String title = 'DeliMeals';
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Map<String, bool> _filters = {
+    'gluten': false,
+    'lactose': false,
+    'vegan': false,
+    'vegetarian': false,
+  };
+
+  List<Meal> _availableMeals = DUMMY_MEALS;
+
+  void _setFilters(Map<String, bool> filterData) {
+    setState(() {
+      this._filters = filterData;
+
+      this._availableMeals = DUMMY_MEALS.where((meal) {
+        if (this._filters['gluten'] as bool && !meal.isGlutenFree) {
+          return false;
+        }
+        if (this._filters['lactose'] as bool && !meal.isLactoseFree) {
+          return false;
+        }
+        if (this._filters['vegan'] as bool && !meal.isVegan) {
+          return false;
+        }
+        if (this._filters['vegetarian'] as bool && !meal.isVegetarian) {
+          return false;
+        }
+
+        return true;
+      }).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: this.title,
+      title: widget.title,
       theme: ThemeData(
         primarySwatch: Colors.pink,
         accentColor: Colors.amber,
@@ -37,9 +76,11 @@ class MyApp extends StatelessWidget {
       initialRoute: TabsScreen.routeName,
       routes: {
         TabsScreen.routeName: (_) => TabsScreen(),
-        CategoryMealsScreen.routeName: (_) => CategoryMealsScreen(),
+        CategoryMealsScreen.routeName: (_) =>
+            CategoryMealsScreen(this._availableMeals),
         MealDetailScreen.routeName: (_) => MealDetailScreen(),
-        FiltersScreen.routeName: (_) => FiltersScreen(),
+        FiltersScreen.routeName: (_) =>
+            FiltersScreen(this._filters, this._setFilters),
       },
       // // no route matching above
       // onGenerateRoute: (settings) {

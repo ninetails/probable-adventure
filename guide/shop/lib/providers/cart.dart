@@ -24,6 +24,14 @@ class Cart with ChangeNotifier {
     return this._items.length;
   }
 
+  double get totalAmount {
+    return this._items.values.fold(
+          .0,
+          (previousValue, cartItem) =>
+              previousValue + (cartItem.quantity * cartItem.product.price),
+        );
+  }
+
   void addItem(Product product) {
     if (this._items.containsKey(product.id)) {
       this._items.update(
